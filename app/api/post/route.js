@@ -54,7 +54,22 @@ export async function PUT(req) {
       const updateData = await res.json();
       return NextResponse.json(updateData);
     }
-    
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: "Error", error });
+  }
+}
+
+export async function DELETE(req) {
+  const { id } = await req.json();
+  try {
+    const res = await fetch(`${dataUrl}/${id}`, {
+      method: "DELETE",
+    });
+    if (res.ok || res.status === 201) {
+      const deleteData = await res.json();
+      return NextResponse.json(deleteData);
+    }
   } catch (error) {
     console.log(error);
     return NextResponse.json({ message: "Error", error });
