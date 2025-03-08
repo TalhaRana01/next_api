@@ -65,10 +65,17 @@ export async function DELETE(req) {
   try {
     const res = await fetch(`${dataUrl}/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     if (res.ok || res.status === 201) {
       const deleteData = await res.json();
-      return NextResponse.json(deleteData);
+      console.log(deleteData);
+      return NextResponse.json({
+        message: "Delete Successfully",
+        data: deleteData,
+      });
     }
   } catch (error) {
     console.log(error);
